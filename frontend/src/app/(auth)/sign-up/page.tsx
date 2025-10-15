@@ -1,4 +1,4 @@
-import SignUp from "./sections/sign-up";
+import {SignUp} from "./sections/sign-up";
 
 export default function SignUpPage() {
     return <SignUp />

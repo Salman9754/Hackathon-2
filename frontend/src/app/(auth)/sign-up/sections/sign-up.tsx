@@ -27,7 +27,7 @@ import z from "zod";
 
 type FormValues = z.infer<typeof signupSchema>;
 
-export default function SignUp() {
+export function SignUp() {
   const [ShowPassword, setShowPassword] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(signupSchema),

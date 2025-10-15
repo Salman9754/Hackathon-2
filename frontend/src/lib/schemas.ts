@@ -24,6 +24,26 @@ export const signupSchema = z
     path: ["confirm_password"],
   });
 
-  export const otpSchema = z.object({
-    otp: z.string().length(6, { message: "OTP must be exactly 6 digits" }),
+export const otpSchema = z.object({
+  otp: z.string().length(6, { message: "OTP must be exactly 6 digits" }),
+});
+
+export const forgetPasswordSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    new_password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" })
+      .regex(/[0-9]/, { message: "Password must include at least one number" })
+      .regex(/[^a-zA-Z0-9]/, {
+        message: "Password must include at least one symbol",
+      }),
+    confirm_password: z.string(),
+  })
+  .refine((data) => data.new_password === data.confirm_password, {
+    message: "Passwords do not match",
+    path: ["confirm_password"],
   });
