@@ -12,7 +12,7 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const response = await apiInstance.post("/signin", credentials);
+          const response = await apiInstance.post("/sign-in", credentials);
           const { token, user } = response.data;
 
           if (user) {
@@ -55,7 +55,7 @@ const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/login",
+    signIn: "/sign-in",
   },
   session: {
     strategy: "jwt",

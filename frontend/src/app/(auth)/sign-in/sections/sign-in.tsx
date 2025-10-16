@@ -24,15 +24,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-
+import { useAuth } from "@/hooks/use-auth";
 type FormValues = z.infer<typeof signInSchema>;
 
 export function SignIn() {
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
   const form = useForm<FormValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -41,22 +38,7 @@ export function SignIn() {
     },
   });
   const onSubmit = async (values: FormValues) => {
-    try {
-      const result = await signIn("credentials", {
-        ...values,
-        redirect: false,
-      });
-      if (result?.ok) {
-        toast.success("Signed in successfully");
-      } else {
-        toast.error("Invalid email or password");
-      }
-    } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong"
-      );
-      console.error("Sign-in error:", error);
-    }
+    await login(values);
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">

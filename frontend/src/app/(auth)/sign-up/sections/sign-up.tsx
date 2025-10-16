@@ -24,10 +24,12 @@ import { useForm } from "react-hook-form";
 import { signupSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { useAuth } from "@/hooks/use-auth";
 
 type FormValues = z.infer<typeof signupSchema>;
 
 export function SignUp() {
+  const { signUp } = useAuth();
   const [ShowPassword, setShowPassword] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(signupSchema),
@@ -41,7 +43,7 @@ export function SignUp() {
   });
 
   const onSubmit = (values: FormValues) => {
-    console.log(values);
+    signUp(values);
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
