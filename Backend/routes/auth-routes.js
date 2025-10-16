@@ -1,13 +1,9 @@
 import { Router } from "express";
+import { signIn, signUp } from "../controllers/auth-controller.js";
 
 const authRouter = Router();
 
-authRouter.post("/sign-up", async (req, res) => {
-  return res.status(200).send({ message: "Sign Up APi" });
-});
-authRouter.post("/sign-in", async (req, res) => {
-  return res.status(200).send({ message: "Sign In APi" });
-});
+authRouter.post("/sign-up", signUp);
+authRouter.post("/sign-in", signIn);
 
-
-export default authRouter
+export default authRouter;
