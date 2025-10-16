@@ -57,7 +57,12 @@ export const signIn = async (req, res, next) => {
     return res.status(200).send({
       message: "User signed in successfully",
       token,
-      user: existingUser,
+      user: {
+        id: existingUser._id,
+        email: existingUser.email,
+        first_name: existingUser.first_name,
+        last_name: existingUser.last_name,
+      },
     });
   } catch (error) {
     return res.status(500).send({ message: "Internal server error" });
