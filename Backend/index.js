@@ -9,6 +9,10 @@ app.use(cors());
 
 app.use("/api", authRouter);
 
+app.get("/get", (req, res) => {
+  return res.status(200).send({ message: "Api working" });
+});
+
 app.listen(PORT, async () => {
   await connectDatabase();
   console.log(`Example app listening on PORT ${PORT}`);
